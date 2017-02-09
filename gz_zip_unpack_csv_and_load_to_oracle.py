@@ -354,4 +354,4 @@ class csv_darabolas_to_sql_loader():
         real_upload_rows=str(real_upload_rows)
         cc=str(cc)
 
-        print('Finish uploading -- '+cc+' rows from -- '+filename_csv_0+' file  to --   to -- '+table_name+' table\n-->>|<<-- <<>> Uploaded rows: '+ real_upload_rows + ' <<>> -->>|<<--')
+        print('Finish uploading -- '+cc+' rows from -- '+filename_csv_0+' file  to -- '+table_name+' table\n-->>|<<-- <<>> Uploaded rows: '+ real_upload_rows + ' <<>> -->>|<<--')

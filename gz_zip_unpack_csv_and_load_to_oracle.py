@@ -1,3 +1,7 @@
+#!/usr/bin/python
+# -*- coding: cp1250  -*-
+__author__ = 'Fekete András Demeter'
+
 import glob
 import shutil
 import os

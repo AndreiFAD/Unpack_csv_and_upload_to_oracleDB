@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: cp1250  -*-
-__author__ = 'Fekete Andr√°s Demeter'
+__author__ = 'Fekete Andr·s Demeter'
 
 import glob
 import shutil
@@ -80,30 +80,28 @@ class convertalas_():
 
 class connection():
 
-      def connct(self):
+    def connct(self):
 
-            global conn_db
-            global connstrg
-            global db
-            global user
-            global pwd
-            global ip
-            global port
+        global conn_db
+        global connstrg
+        global db
+        global user
+        global pwd
+        global ip
+        global port
 
-            ip = 'host'
-            port = port
-            db='shema'
-            user='user'
-            pwd ='password'
-            connstrg='user@\\"\\(description=\\(address=\\(host=host\\)\\(protocol=tcp\\)\\(port=port\\)\\)\\(connect_data=\\(sid=sid\\)\\)\\)\\"/password'
+        ip = 'host'
+        port = port
+        db='shema'
+        user='user'
+        pwd ='password'
+        connstrg='user@\\"\\(description=\\(address=\\(host=host\\)\\(protocol=tcp\\)\\(port=port\\)\\)\\(connect_data=\\(sid=sid\\)\\)\\)\\"/password'
 
 class report():
 
     def sql_report(self):
+
         global strsql
-        global name_1_export
-        global a
-        global t
         global title2
         global table_name
 
@@ -111,7 +109,7 @@ class report():
         conndef.connct()
 
         try:
-            a='select * from ' + table_name
+            a ='select * from ' + table_name
 
             strsql =  a
             dsn_tns = cx_Oracle.makedsn(ip, port, db)
@@ -168,12 +166,13 @@ class report_rownum():
 
 class csv_darabolas_to_sql_loader():
 
-    global x
+    global def_rownums
     global filename_csv_0
     global table_name
     global connstrg
     global real_upload_rows
-    global cc
+    global read_rownum
+    global row_count_infile
 
     def csv_darab_(self,input_path,filename_csv_0,table_name,file_name_load):
 
@@ -187,16 +186,16 @@ class csv_darabolas_to_sql_loader():
 
         print('column: ',title2)
 
-        x=1
+        def_rownums=1
         d='1'
-        cc=0
-        row_count=0
+        read_rownum=0
+        row_count_infile=0
         real_upload_rows=""
         ttrrzz=filename_csv_0
 
         with open(input_path+"/"+filename_csv_0,'r') as cfile_:
             reader=csv.reader(cfile_,delimiter=';')
-            row_count = sum(1 for row in reader)
+            row_count_infile = sum(1 for row in reader)
 
         with open(input_path+"/"+filename_csv_0,'r') as cfile_:
             reader=csv.reader(cfile_,delimiter=';')
@@ -211,10 +210,10 @@ class csv_darabolas_to_sql_loader():
                         if file_name_load=='1':
                             rowss.append(ttrrzz)
                         a.writerows([rowss])
-                        x=x+1
-                        cc=cc+1
-                        if x < 60000:
-                            if cc==row_count:
+                        def_rownums=def_rownums+1
+                        read_rownum=read_rownum+1
+                        if def_rownums < 60000:
+                            if read_rownum==row_count_infile:
                                 if d=='1':
 
                                     b.close()
@@ -275,7 +274,7 @@ class csv_darabolas_to_sql_loader():
                                     os.remove("c:\\Temp\\"+"/"+filename_csv_0[:-4]+"v"+d+".csv")
                                     os.remove('c:\\Temp\\sqlload_csv_bat_'+u+'.bat')
 
-                                x=1
+                                def_rownums=1
                             else:
                                 pass
 
@@ -345,13 +344,25 @@ class csv_darabolas_to_sql_loader():
 
                             b=open("c:\\Temp\\"+filename_csv_0[:-4]+"v"+d+".csv", 'w',newline='')
                             a=csv.writer(b,delimiter=';')
-                            x=1
+                            def_rownums=1
 
         selections=report_rownum()
         selections.sql_report_rownum()
+
         real_upload_rows=data_report_rownum
-
         real_upload_rows=str(real_upload_rows)
-        cc=str(cc)
 
-        print('Finish uploading -- '+cc+' rows from -- '+filename_csv_0+' file  to -- '+table_name+' table\n-->>|<<-- <<>> Uploaded rows: '+ real_upload_rows + ' <<>> -->>|<<--')
+        read_rownum=str(read_rownum)
+
+        print('Finish uploading -- '+read_rownum+' rows from -- '+filename_csv_0+' file  to -- '+table_name+' table\n-->>|<<-- <<>> Uploaded rows: '+ real_upload_rows + ' <<>> -->>|<<--')
+
+if __name__ == "__main__":
+
+
+    input_path = ""
+    filename_csv_0 = ""
+    table_name = ""
+    file_name_load = ""
+
+    start=csv_darabolas_to_sql_loader()
+    start.csv_darab_(input_path, filename_csv_0, table_name, file_name_load)

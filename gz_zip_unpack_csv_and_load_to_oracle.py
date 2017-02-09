@@ -13,9 +13,9 @@ import time
 import zipfile
 import gzip
 
-class zip_kezeles:
+class zip_unpack:
 
-    def kicsomagol_zip(self, file_name, outpath):
+    def unpack_zip(self, file_name, outpath):
 
         fh = open(file_name, 'rb')
         z = zipfile.ZipFile(fh)
@@ -24,9 +24,9 @@ class zip_kezeles:
 
         fh.close()
 
-class gz_kezeles:
+class gz_unpack:
 
-    def kicsomagol_gz(self, file_name, outpath):
+    def unpack_gz(self, file_name, outpath):
 
         for gzip_path in glob.glob(file_name):
 
@@ -41,35 +41,35 @@ class gz_kezeles:
                 open(uncompressed_path, 'wb').write(s)
 
 class convertalas_():
-    def convert_(self,eleres,outpath):
+    def convert_(self,inputpath,outpath):
         global _name
         try:
 
-            files=glob.glob(eleres+"/*")
+            files=glob.glob(inputpath+"/*")
             for name in files:
 
-                    _name=name[len(eleres)+1:]
+                    _name=name[len(inputpath)+1:]
                     try:
 
                          if _name[-3:]=="zip":
 
-                              for file_name in glob.glob(eleres+'/'+ _name):
-                                  unpack=zip_kezeles()
-                                  unpack.kicsomagol_zip(file_name, outpath)
+                              for file_name in glob.glob(inputpath+'/'+ _name):
+                                  unpack=zip_unpack()
+                                  unpack.unpack_zip(file_name, outpath)
                                   os.remove(file_name)
 
                          elif _name[-3:]==".gz":
 
-                              for file_name in glob.glob(eleres+'/'+ _name):
-                                  unpack=gz_kezeles()
-                                  unpack.kicsomagol_gz(file_name, outpath)
+                              for file_name in glob.glob(inputpath+'/'+ _name):
+                                  unpack=gz_unpack()
+                                  unpack.unpack_gz(file_name, outpath)
                                   os.remove(file_name)
 
                          elif _name[-3:]=="csv":
-                              shutil.move(eleres + "/" + _name, outpath + "/" + _name)
+                              shutil.move(inputpath + "/" + _name, outpath + "/" + _name)
 
                          else:
-                              os.remove(eleres + "/" + _name)
+                              os.remove(inputpath + "/" + _name)
 
                     except:
                         pass
@@ -182,8 +182,8 @@ class csv_darabolas_to_sql_loader():
         conndef=connection()
         conndef.connct()
 
-        hell=report()
-        hell.sql_report()
+        run_report=report()
+        run_report.sql_report()
 
         print('column: ',title2)
 

@@ -65,7 +65,7 @@ class convertalas_():
                                   unpack.kicsomagol_gz(file_name, outpath)
                                   os.remove(file_name)
 
-                         elif _name[-3:]=="csv" or _name[-4:]=="xlsx" or _name[-3:]=="xls":
+                         elif _name[-3:]=="csv":
                               shutil.move(eleres + "/" + _name, outpath + "/" + _name)
 
                          else:
